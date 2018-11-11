@@ -8,6 +8,9 @@
 Additional documentation can be found at the [Marlin Home Page](http://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
+## About this fork
+This fork (WIP) configures the marlin to work with a prusa MK2.5 Clone with TMC2130 1.1 SPI on RAMPS1.4 with ReprapDiscount Smart Controller.
+
 ## Marlin 2.0 Bugfix Branch
 
 __Not for production use. Use with caution!__
