@@ -642,7 +642,6 @@
 // Notes(Volca):
 // 1.8 deg/step motors on XYZE. Leadscrew has 8mm/revolution
 // This setup expects 1/16 microstepping
-// Not sure yet about E axis extrusion rate. 280 seems to be default for prusa marlin firmware
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 140 }
 
 /**
@@ -806,8 +805,8 @@
  *    (0,0)
  */
 // TODO(Volca): Measure these!
-#define X_PROBE_OFFSET_FROM_EXTRUDER 35  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
+#define X_PROBE_OFFSET_FROM_EXTRUDER 37  // X offset: -left  +right  [of the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 5   // Y offset: -front +behind [the nozzle]
 #define Z_PROBE_OFFSET_FROM_EXTRUDER -0.2   // Z offset: -below +above  [the nozzle]
 
 // Certain types of probes need to stay away from edges
