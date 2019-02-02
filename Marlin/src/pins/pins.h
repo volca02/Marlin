@@ -144,6 +144,8 @@
   #include "pins_RUMBA.h"             // ATmega2560                                 env:megaatmega2560
 #elif MB(RUMBA_RAISE3D)
   #include "pins_RUMBA_RAISE3D.h"     // ATmega2560                                 env:megaatmega2560
+#elif MB(RL200)
+  #include "pins_RL200.h"             // ATmega2560                                 env:megaatmega2560
 #elif MB(BQ_ZUM_MEGA_3D)
   #include "pins_BQ_ZUM_MEGA_3D.h"    // ATmega2560                                 env:megaatmega2560
 #elif MB(MAKEBOARD_MINI)
@@ -207,6 +209,8 @@
   #include "pins_GT2560_V3.h"         // ATmega2560                                 env:megaatmega2560
 #elif MB(GT2560_V3_MC2)
   #include "pins_GT2560_V3_MC2.h"     // ATmega2560                                 env:megaatmega2560
+#elif MB(GT2560_V3_A20)
+  #include "pins_GT2560_V3_A20.h"     // ATmega2560                                 env:megaatmega2560
 #elif MB(EINSTART_S)
   #include "pins_EINSTART-S.h"        // ATmega1280, ATmega2560                     env:megaatmega1280 env:megaatmega2560
 
@@ -385,6 +389,8 @@
   #include "pins_ARCHIM2.h"           // SAM3X8E                                    env:DUE env:DUE_debug
 #elif MB(ALLIGATOR)
   #include "pins_ALLIGATOR_R2.h"      // SAM3X8E                                    env:DUE env:DUE_debug
+#elif MB(ADSK)
+  #include "pins_ADSK.h"              // SAM3X8E                                    env:DUE env:DUE_debug
 
 //
 // STM32 ARM Cortex-M3
