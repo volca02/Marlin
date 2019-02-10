@@ -664,7 +664,8 @@
 // Notes(Volca):
 // 1.8 deg/step motors on XYZE. Leadscrew has 8mm/revolution
 // This setup expects 1/16 microstepping
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 138.2 }
+// E0 is calibrated with 100*CURRENT_STEPS/extruded_mm when extruding 100mm of plastic
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 136.41 }
 
 /**
  * Default Max Feed Rate (mm/s)
