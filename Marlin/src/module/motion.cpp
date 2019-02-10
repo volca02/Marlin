@@ -117,13 +117,13 @@ float feedrate_mm_s = MMM_TO_MMS(1500.0f);
 int16_t feedrate_percentage = 100;
 
 // Homing feedrate is const progmem - compare to constexpr in the header
-const float homing_feedrate_mm_s[4] PROGMEM = {
+const float homing_feedrate_mm_s[XYZ] PROGMEM = {
   #if ENABLED(DELTA)
     MMM_TO_MMS(HOMING_FEEDRATE_Z), MMM_TO_MMS(HOMING_FEEDRATE_Z),
   #else
     MMM_TO_MMS(HOMING_FEEDRATE_XY), MMM_TO_MMS(HOMING_FEEDRATE_XY),
   #endif
-  MMM_TO_MMS(HOMING_FEEDRATE_Z), 0
+  MMM_TO_MMS(HOMING_FEEDRATE_Z)
 };
 
 // Cartesian conversion result goes here:
@@ -1421,7 +1421,7 @@ void homeaxis(const AxisEnum axis) {
   #endif
 
   // Set flags for X, Y, Z motor locking
-  #if ENABLED(X_DUAL_ENDSTOPS) || ENABLED(Y_DUAL_ENDSTOPS) || Z_MULTI_ENDSTOPS
+  #if HAS_EXTRA_ENDSTOPS
     switch (axis) {
       #if ENABLED(X_DUAL_ENDSTOPS)
         case X_AXIS:
@@ -1499,7 +1499,7 @@ void homeaxis(const AxisEnum axis) {
     #endif
   }
 
-  #if ENABLED(X_DUAL_ENDSTOPS) || ENABLED(Y_DUAL_ENDSTOPS) || Z_MULTI_ENDSTOPS
+  #if HAS_EXTRA_ENDSTOPS
     const bool pos_dir = axis_home_dir > 0;
     #if ENABLED(X_DUAL_ENDSTOPS)
       if (axis == X_AXIS) {
