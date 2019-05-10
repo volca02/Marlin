@@ -26,7 +26,7 @@
  * Communication interface for FSMC
  */
 
-#if (defined(STM32F1) || defined(STM32F1xx)) && (defined(STM32_HIGH_DENSITY) || defined(STM32_XL_DENSITY))
+#if defined(ARDUINO_ARCH_STM32F1) && (defined(STM32_HIGH_DENSITY) || defined(STM32_XL_DENSITY))
 
 #include "../../inc/MarlinConfig.h"
 
@@ -67,7 +67,7 @@ uint8_t u8g_com_stm32duino_fsmc_fn(u8g_t *u8g, uint8_t msg, uint8_t arg_val, voi
       LCD_IO_Init(u8g->pin_list[U8G_PI_CS], u8g->pin_list[U8G_PI_A0]);
       u8g_Delay(100);
 
-      if (arg_ptr != NULL)
+      if (arg_ptr != nullptr)
         *((uint32_t *)arg_ptr) = LCD_IO_ReadData(LCD_READ_ID, 3);
 
       isCommand = 0;
@@ -267,4 +267,4 @@ uint32_t LCD_IO_ReadData(uint16_t RegValue, uint8_t ReadSize) {
 
 #endif // HAS_GRAPHICAL_LCD
 
-#endif // (STM32F1 || STM32F1xx) && (STM32_HIGH_DENSITY || STM32_XL_DENSITY)
+#endif // ARDUINO_ARCH_STM32F1 && (STM32_HIGH_DENSITY || STM32_XL_DENSITY)

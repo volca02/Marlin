@@ -24,8 +24,6 @@
 
 #if ENABLED(AUTO_BED_LEVELING_UBL)
 
-  //#define UBL_DEVEL_DEBUGGING
-
   #include "ubl.h"
 
   #include "../../../Marlin.h"
@@ -332,7 +330,7 @@
       else {
         while (g29_repetition_cnt--) {
           if (cnt > 20) { cnt = 0; idle(); }
-          const mesh_index_pair location = find_closest_mesh_point_of_type(REAL, g29_x_pos, g29_y_pos, USE_NOZZLE_AS_REFERENCE, NULL);
+          const mesh_index_pair location = find_closest_mesh_point_of_type(REAL, g29_x_pos, g29_y_pos, USE_NOZZLE_AS_REFERENCE, nullptr);
           if (location.x_index < 0) {
             // No more REACHABLE mesh points to invalidate, so we ASSUME the user
             // meant to invalidate the ENTIRE mesh, which cannot be done with
@@ -530,7 +528,7 @@
             }
             else {
               while (g29_repetition_cnt--) {  // this only populates reachable mesh points near
-                const mesh_index_pair location = find_closest_mesh_point_of_type(INVALID, g29_x_pos, g29_y_pos, USE_NOZZLE_AS_REFERENCE, NULL);
+                const mesh_index_pair location = find_closest_mesh_point_of_type(INVALID, g29_x_pos, g29_y_pos, USE_NOZZLE_AS_REFERENCE, nullptr);
                 if (location.x_index < 0) {
                   // No more REACHABLE INVALID mesh points to populate, so we ASSUME
                   // user meant to populate ALL INVALID mesh points to value
@@ -761,18 +759,16 @@
         if (do_furthest)
           location = find_furthest_invalid_mesh_point();
         else
-          location = find_closest_mesh_point_of_type(INVALID, rx, ry, USE_PROBE_AS_REFERENCE, NULL);
+          location = find_closest_mesh_point_of_type(INVALID, rx, ry, USE_PROBE_AS_REFERENCE, nullptr);
 
         if (location.x_index >= 0) {    // mesh point found and is reachable by probe
           const float rawx = mesh_index_to_xpos(location.x_index),
-                      rawy = mesh_index_to_ypos(location.y_index);
-
-          const float measured_z = probe_pt(rawx, rawy, stow_probe ? PROBE_PT_STOW : PROBE_PT_RAISE, g29_verbose_level); // TODO: Needs error handling
+                      rawy = mesh_index_to_ypos(location.y_index),
+                      measured_z = probe_pt(rawx, rawy, stow_probe ? PROBE_PT_STOW : PROBE_PT_RAISE, g29_verbose_level); // TODO: Needs error handling
           z_values[location.x_index][location.y_index] = measured_z;
           #if ENABLED(EXTENSIBLE_UI)
             ExtUI::onMeshUpdate(location.x_index, location.y_index, measured_z);
           #endif
-          
         }
         SERIAL_FLUSH(); // Prevent host M105 buffer overrun.
       } while (location.x_index >= 0 && --count);
@@ -797,7 +793,7 @@
 
     typedef void (*clickFunc_t)();
 
-    bool click_and_hold(const clickFunc_t func=NULL) {
+    bool click_and_hold(const clickFunc_t func=nullptr) {
       if (ui.button_pressed()) {
         ui.quick_feedback(false);                // Preserve button state for click-and-hold
         const millis_t nxt = millis() + 1500UL;
@@ -895,7 +891,7 @@
 
       mesh_index_pair location;
       do {
-        location = find_closest_mesh_point_of_type(INVALID, rx, ry, USE_NOZZLE_AS_REFERENCE, NULL);
+        location = find_closest_mesh_point_of_type(INVALID, rx, ry, USE_NOZZLE_AS_REFERENCE, nullptr);
         // It doesn't matter if the probe can't reach the NAN location. This is a manual probe.
         if (location.x_index < 0 && location.y_index < 0) continue;
 
