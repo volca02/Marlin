@@ -955,15 +955,7 @@ void setup() {
 
   // Load data from EEPROM if available (or use defaults)
   // This also updates variables in the planner, elsewhere
-  #if ENABLED(EEPROM_AUTO_INIT)
-    if (!settings.load()) {
-      (void)settings.reset();
-      (void)settings.save();
-      SERIAL_ECHO_MSG("EEPROM Initialized");
-    }
-  #else
-    (void)settings.load();
-  #endif
+  (void)settings.load();
 
   #if HAS_M206_COMMAND
     // Initialize current position based on home_offset
@@ -1059,6 +1051,10 @@ void setup() {
 
   #if HAS_FANMUX
     fanmux_init();
+  #endif
+
+  #if HAS_TRINAMIC && HAS_LCD_MENU
+    init_tmc_section();
   #endif
 
   #if ENABLED(MIXING_EXTRUDER)
