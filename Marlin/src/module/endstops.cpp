@@ -1,9 +1,9 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (C) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
- * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
+ * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
   #include HAL_PATH(../HAL, endstop_interrupts.h)
 #endif
 
-#if BOTH(ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED, SDSUPPORT)
+#if BOTH(SD_ABORT_ON_ENDSTOP_HIT, SDSUPPORT)
   #include "printcounter.h" // for print_job_timer
 #endif
 
@@ -330,7 +330,7 @@ void Endstops::resync() {
 void Endstops::event_handler() {
   static uint8_t prev_hit_state; // = 0
   if (hit_state && hit_state != prev_hit_state) {
-    #if ENABLED(ULTRA_LCD)
+    #if HAS_SPI_LCD
       char chrX = ' ', chrY = ' ', chrZ = ' ', chrP = ' ';
       #define _SET_STOP_CHAR(A,C) (chr## A = C)
     #else
@@ -361,11 +361,11 @@ void Endstops::event_handler() {
     #endif
     SERIAL_EOL();
 
-    #if ENABLED(ULTRA_LCD)
+    #if HAS_SPI_LCD
       ui.status_printf_P(0, PSTR(MSG_LCD_ENDSTOPS " %c %c %c %c"), chrX, chrY, chrZ, chrP);
     #endif
 
-    #if BOTH(ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED, SDSUPPORT)
+    #if BOTH(SD_ABORT_ON_ENDSTOP_HIT, SDSUPPORT)
       if (planner.abort_on_endstop_hit) {
         card.stopSDPrint();
         quickstop_stepper();
@@ -783,14 +783,13 @@ void Endstops::update() {
   bool Endstops::monitor_flag = false;
 
   /**
-   * monitors endstops & Z probe for changes
+   * Monitor Endstops and Z Probe for changes
    *
    * If a change is detected then the LED is toggled and
-   * a message is sent out the serial port
+   * a message is sent out the serial port.
    *
    * Yes, we could miss a rapid back & forth change but
    * that won't matter because this is all manual.
-   *
    */
   void Endstops::monitor() {
 
@@ -896,7 +895,7 @@ void Endstops::update() {
         ES_REPORT_CHANGE(Z3_MAX);
       #endif
       SERIAL_ECHOLNPGM("\n");
-      analogWrite(LED_PIN, local_LED_status);
+      analogWrite(pin_t(LED_PIN), local_LED_status);
       local_LED_status ^= 255;
       old_live_state_local = live_state_local;
     }

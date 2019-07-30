@@ -1,9 +1,9 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (C) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
- * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
+ * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -190,6 +190,18 @@
 #ifndef MSG_LASER_POWER
   #define MSG_LASER_POWER                     _UxGT("Laser power")
 #endif
+#ifndef MSG_SPINDLE_MENU
+  #define MSG_SPINDLE_MENU                    _UxGT("Spindle Control")
+#endif
+#ifndef MSG_SPINDLE_OFF
+  #define MSG_SPINDLE_OFF                     _UxGT("Spindle Off")
+#endif
+#ifndef MSG_SPINDLE_ON
+  #define MSG_SPINDLE_ON                      _UxGT("Spindle On")
+#endif
+#ifndef MSG_SPINDLE_POWER
+  #define MSG_SPINDLE_POWER                   _UxGT("Spindle power")
+#endif
 #ifndef MSG_SPINDLE_REVERSE
   #define MSG_SPINDLE_REVERSE                 _UxGT("Spindle Reverse")
 #endif
@@ -252,6 +264,12 @@
 #endif
 #ifndef MSG_LCD_TILTING_MESH
   #define MSG_LCD_TILTING_MESH                _UxGT("Tilting point")
+#endif
+#ifndef MSG_M48_TEST
+  #define MSG_M48_TEST                        _UxGT("M48 Probe Test")
+#endif
+#ifndef MSG_M48_DEVIATION
+  #define MSG_M48_DEVIATION                   _UxGT("Deviation")
 #endif
 #ifndef MSG_IDEX_MENU
   #define MSG_IDEX_MENU                       _UxGT("IDEX Mode")
@@ -530,6 +548,9 @@
 #endif
 #ifndef MSG_HOTEND_TOO_COLD
   #define MSG_HOTEND_TOO_COLD                 _UxGT("Hotend too cold")
+#endif
+#ifndef MSG_MOVE_Z_DIST
+  #define MSG_MOVE_Z_DIST                     _UxGT("Move %smm")
 #endif
 #ifndef MSG_MOVE_01MM
   #define MSG_MOVE_01MM                       _UxGT("Move 0.1mm")
@@ -853,13 +874,16 @@
   #define MSG_AUTORETRACT                     _UxGT("AutoRetr.")
 #endif
 #ifndef MSG_FILAMENT_SWAP_LENGTH
-  #define MSG_FILAMENT_SWAP_LENGTH            _UxGT("Retract Distance")
+  #define MSG_FILAMENT_SWAP_LENGTH            _UxGT("Swap Length")
+#endif
+#ifndef MSG_FILAMENT_PURGE_LENGTH
+  #define MSG_FILAMENT_PURGE_LENGTH           _UxGT("Purge Length")
 #endif
 #ifndef MSG_TOOL_CHANGE
-  #define MSG_TOOL_CHANGE                      _UxGT("Tool Change")
+  #define MSG_TOOL_CHANGE                     _UxGT("Tool Change")
 #endif
 #ifndef MSG_TOOL_CHANGE_ZLIFT
-  #define MSG_TOOL_CHANGE_ZLIFT                _UxGT("Z Raise")
+  #define MSG_TOOL_CHANGE_ZLIFT               _UxGT("Z Raise")
 #endif
 #ifndef MSG_SINGLENOZZLE_PRIME_SPD
   #define MSG_SINGLENOZZLE_PRIME_SPD          _UxGT("Prime Speed")
@@ -901,28 +925,55 @@
   #define MSG_BLTOUCH                         _UxGT("BLTouch")
 #endif
 #ifndef MSG_BLTOUCH_SELFTEST
-  #define MSG_BLTOUCH_SELFTEST                _UxGT("BLTouch Self-Test")
+  #define MSG_BLTOUCH_SELFTEST                _UxGT("Cmd: Self-Test")
 #endif
 #ifndef MSG_BLTOUCH_RESET
-  #define MSG_BLTOUCH_RESET                   _UxGT("Reset BLTouch")
-#endif
-#ifndef MSG_BLTOUCH_DEPLOY
-  #define MSG_BLTOUCH_DEPLOY                  _UxGT("Deploy BLTouch")
-#endif
-#ifndef MSG_BLTOUCH_SW_MODE
-  #define MSG_BLTOUCH_SW_MODE                 _UxGT("BLTouch SW Mode")
-#endif
-#ifndef MSG_BLTOUCH_5V_MODE
-  #define MSG_BLTOUCH_5V_MODE                 _UxGT("BLTouch 5V Mode")
-#endif
-#ifndef MSG_BLTOUCH_OD_MODE
-  #define MSG_BLTOUCH_OD_MODE                 _UxGT("BLTouch OD Mode")
-#endif
-#ifndef MSG_BLTOUCH_MODE_STORE
-  #define MSG_BLTOUCH_MODE_STORE              _UxGT("BLTouch Mode Store")
+  #define MSG_BLTOUCH_RESET                   _UxGT("Cmd: Reset")
 #endif
 #ifndef MSG_BLTOUCH_STOW
-  #define MSG_BLTOUCH_STOW                    _UxGT("Stow BLTouch")
+  #define MSG_BLTOUCH_STOW                    _UxGT("Cmd: Stow")
+#endif
+#ifndef MSG_BLTOUCH_DEPLOY
+  #define MSG_BLTOUCH_DEPLOY                  _UxGT("Cmd: Deploy")
+#endif
+#ifndef MSG_BLTOUCH_SW_MODE
+  #define MSG_BLTOUCH_SW_MODE                 _UxGT("Cmd: SW-Mode")
+#endif
+#ifndef MSG_BLTOUCH_5V_MODE
+  #define MSG_BLTOUCH_5V_MODE                 _UxGT("Cmd: 5V-Mode")
+#endif
+#ifndef MSG_BLTOUCH_OD_MODE
+  #define MSG_BLTOUCH_OD_MODE                 _UxGT("Cmd: OD-Mode")
+#endif
+#ifndef MSG_BLTOUCH_MODE_STORE
+  #define MSG_BLTOUCH_MODE_STORE              _UxGT("Cmd: Mode-Store")
+#endif
+#ifndef MSG_BLTOUCH_MODE_STORE_5V
+  #define MSG_BLTOUCH_MODE_STORE_5V           _UxGT("Set BLTouch to 5V")
+#endif
+#ifndef MSG_BLTOUCH_MODE_STORE_OD
+  #define MSG_BLTOUCH_MODE_STORE_OD           _UxGT("Set BLTouch to OD")
+#endif
+#ifndef MSG_BLTOUCH_MODE_ECHO
+  #define MSG_BLTOUCH_MODE_ECHO               _UxGT("Report Drain")
+#endif
+#ifndef MSG_BLTOUCH_MODE_CHANGE
+  #define MSG_BLTOUCH_MODE_CHANGE             _UxGT("DANGER: Bad settings can cause damage! Proceed anyway?")
+#endif
+#ifndef MSG_TOUCHMI_PROBE
+  #define MSG_TOUCHMI_PROBE                   _UxGT("TouchMI")
+#endif
+#ifndef MSG_TOUCHMI_INIT
+  #define MSG_TOUCHMI_INIT                    _UxGT("Init TouchMI")
+#endif
+#ifndef MSG_TOUCHMI_ZTEST
+  #define MSG_TOUCHMI_ZTEST                   _UxGT("Z offset Test")
+#endif
+#ifndef MSG_TOUCHMI_SAVE
+  #define MSG_TOUCHMI_SAVE                    _UxGT("Save")
+#endif
+#ifndef MSG_MANUAL_DEPLOY_TOUCHMI
+  #define MSG_MANUAL_DEPLOY_TOUCHMI           _UxGT("Deploy TouchMI")
 #endif
 #ifndef MSG_MANUAL_DEPLOY
   #define MSG_MANUAL_DEPLOY                   _UxGT("Deploy Z-Probe")
@@ -1185,6 +1236,9 @@
 #ifndef MSG_RUNOUT_SENSOR
   #define MSG_RUNOUT_SENSOR                   _UxGT("Runout Sensor")
 #endif
+#ifndef MSG_RUNOUT_DISTANCE_MM
+  #define MSG_RUNOUT_DISTANCE_MM              _UxGT("Runout Dist mm")
+#endif
 #ifndef MSG_ERR_HOMING_FAILED
   #define MSG_ERR_HOMING_FAILED               _UxGT("Homing failed")
 #endif
@@ -1336,6 +1390,10 @@
 #endif
 #ifndef MSG_END_Z
   #define MSG_END_Z                           _UxGT("  End Z")
+#endif
+
+#ifndef MSG_GAMES
+  #define MSG_GAMES                           _UxGT("Games")
 #endif
 #ifndef MSG_BRICKOUT
   #define MSG_BRICKOUT                        _UxGT("Brickout")

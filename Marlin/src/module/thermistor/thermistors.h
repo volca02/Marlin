@@ -1,9 +1,9 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (C) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
- * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
+ * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,6 +56,9 @@
 #if ANY_THERMISTOR_IS(501) // 100K Zonestar thermistor
   #include "thermistor_501.h"
 #endif
+#if ANY_THERMISTOR_IS(512) // 100k thermistor in RPW-Ultra hotend, Pull-up = 4.7 kOhm, "unknown model"
+  #include "thermistor_512.h"
+#endif
 #if ANY_THERMISTOR_IS(6) // beta25 = 4092 K, R25 = 100 kOhm, Pull-up = 8.2 kOhm, "EPCOS ?"
   #include "thermistor_6.h"
 #endif
@@ -82,6 +85,9 @@
 #endif
 #if ANY_THERMISTOR_IS(15) // JGAurora A5 thermistor calibration
   #include "thermistor_15.h"
+#endif
+#if ANY_THERMISTOR_IS(18) // ATC Semitec 204GT-2 (4.7k pullup) Dagoma.Fr - MKS_Base_DKU001327
+  #include "thermistor_18.h"
 #endif
 #if ANY_THERMISTOR_IS(20) // PT100 with INA826 amp on Ultimaker v2.0 electronics
   #include "thermistor_20.h"
@@ -136,6 +142,9 @@
 #endif
 #if ANY_THERMISTOR_IS(999) // User-defined table 2
   #include "thermistor_999.h"
+#endif
+#if ANY_THERMISTOR_IS(1000) // Custom
+  const short temptable_1000[][2] PROGMEM = { { 0, 0 } };
 #endif
 
 #define _TT_NAME(_N) temptable_ ## _N
@@ -202,25 +211,29 @@
 #endif
 
 #ifdef THERMISTORBED
-  #define BEDTEMPTABLE TT_NAME(THERMISTORBED)
-  #define BEDTEMPTABLE_LEN COUNT(BEDTEMPTABLE)
+  #define BED_TEMPTABLE TT_NAME(THERMISTORBED)
+  #define BED_TEMPTABLE_LEN COUNT(BED_TEMPTABLE)
 #elif defined(HEATER_BED_USES_THERMISTOR)
   #error "No bed thermistor table specified"
 #else
-  #define BEDTEMPTABLE_LEN 0
+  #define BED_TEMPTABLE_LEN 0
 #endif
 
 #ifdef THERMISTORCHAMBER
-  #define CHAMBERTEMPTABLE TT_NAME(THERMISTORCHAMBER)
-  #define CHAMBERTEMPTABLE_LEN COUNT(CHAMBERTEMPTABLE)
+  #define CHAMBER_TEMPTABLE TT_NAME(THERMISTORCHAMBER)
+  #define CHAMBER_TEMPTABLE_LEN COUNT(CHAMBER_TEMPTABLE)
 #elif defined(HEATER_CHAMBER_USES_THERMISTOR)
   #error "No chamber thermistor table specified"
 #else
-  #define CHAMBERTEMPTABLE_LEN 0
+  #define CHAMBER_TEMPTABLE_LEN 0
 #endif
 
 // The SCAN_THERMISTOR_TABLE macro needs alteration?
-static_assert(HEATER_0_TEMPTABLE_LEN < 256 && HEATER_1_TEMPTABLE_LEN < 256 && HEATER_2_TEMPTABLE_LEN < 256 && HEATER_3_TEMPTABLE_LEN < 256 && HEATER_4_TEMPTABLE_LEN < 256 && BEDTEMPTABLE_LEN < 256 && CHAMBERTEMPTABLE_LEN < 256,
+static_assert(
+     HEATER_0_TEMPTABLE_LEN < 256 && HEATER_1_TEMPTABLE_LEN < 256
+  && HEATER_2_TEMPTABLE_LEN < 256 && HEATER_3_TEMPTABLE_LEN < 256
+  && HEATER_4_TEMPTABLE_LEN < 256 && HEATER_5_TEMPTABLE_LEN < 256
+  &&      BED_TEMPTABLE_LEN < 256 &&  CHAMBER_TEMPTABLE_LEN < 256,
   "Temperature conversion tables over 255 entries need special consideration."
 );
 
