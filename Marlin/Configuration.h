@@ -500,9 +500,9 @@
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
     // Measured via M303 E0 S200 C8 for silicone sock covered hotend
-    #define DEFAULT_Kp  18.45
-    #define DEFAULT_Ki   1.16
-    #define DEFAULT_Kd  73.70
+    #define DEFAULT_Kp  20.04
+    #define DEFAULT_Ki   1.25
+    #define DEFAULT_Kd  80.45
   #endif
 #endif // PIDTEMP
 
@@ -563,7 +563,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 20 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
