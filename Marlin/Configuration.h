@@ -415,7 +415,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 13
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -465,7 +465,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 255
+#define HEATER_0_MAXTEMP 275
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -757,7 +757,7 @@
 // 1.8 deg/step motors on XYZE. Leadscrew has 8mm/revolution
 // This setup expects 1/16 microstepping
 // E0 is calibrated with 100*CURRENT_STEPS/extruded_mm when extruding 100mm of plastic
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 136.41 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 135.98 }
 
 /**
  * Default Max Feed Rate (mm/s)
